@@ -1,0 +1,214 @@
+/* ContagiosList.css */
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding-top: 60px;
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 5% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 90%;
+  max-width: 600px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Estilo del contenido del modal */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+.modal-header h2 {
+  margin: 0;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.modal-body form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.modal-body label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.modal-body input,
+.modal-body select {
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.modal-body input:focus,
+.modal-body select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Estilo de los botones del modal */
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.modal-buttons button {
+  padding: 10px 20px;
+  border-radius: 4px;
+  border: none;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.button-save {
+  background-color: #28a745; /* Verde */
+}
+
+.button-save:hover {
+  background-color: #218838;
+}
+
+.cancel-button {
+  background-color: #dc3545; /* Rojo */
+}
+
+.cancel-button:hover {
+  background-color: #c82333;
+}
+
+/* Estilo para la tabla */
+.table-container {
+  margin: 20px;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table-container table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-container th,
+.table-container td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.table-container th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.table-container tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Botones en la tabla */
+.button-edit,
+.button-delete {
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  color: white;
+  border: none;
+}
+
+.button-edit {
+  background-color: #007bff; /* Azul */
+  margin-right: 5px;
+}
+
+.button-edit:hover {
+  background-color: #0056b3; /* Azul oscuro */
+}
+
+.button-delete {
+  background-color: #dc3545; /* Rojo */
+}
+
+.button-delete:hover {
+  background-color: #c82333; /* Rojo oscuro */
+}
+
+/* Contenedor de la barra de búsqueda */
+.search-container {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Estilo para el campo de búsqueda */
+.search-input {
+  width: 300px;
+  padding: 10px;
+  border: 2px solid #007bff; /* Borde azul */
+  border-radius: 5px;
+  font-size: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-input:focus {
+  border-color: #0056b3; /* Color de borde al enfocar */
+  outline: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Botón para agregar nuevo contagio */
+.button-add {
+  background-color: #28a745; /* Verde */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.button-add:hover {
+  background-color: #218838; /* Verde oscuro */
+}
