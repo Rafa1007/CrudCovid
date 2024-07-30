@@ -6,6 +6,7 @@ import (
 	"gorm.io/gorm"
 )
 
+// Contagio representa un registro de contagio en la base de datos
 type Contagio struct {
 	gorm.Model
 	ID               uint      `json:"id" gorm:"primaryKey"`

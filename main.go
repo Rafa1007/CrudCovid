@@ -11,7 +11,13 @@ import (
 )
 
 func main() {
+
+	// Establecer la conexión con la base de datos
+
 	db.DBConection()
+
+	// Migrar las estructuras a la base de datos
+
 	db.DB.AutoMigrate(&models.Task{})
 	db.DB.AutoMigrate(&models.User{})
 	db.DB.AutoMigrate(&models.Login{})
@@ -20,7 +26,11 @@ func main() {
 	db.DB.AutoMigrate(&models.Hospitalizado{})
 	db.DB.AutoMigrate(&models.Recuperado{})
 
+	// Crear un nuevo enrutador
+
 	r := mux.NewRouter()
+
+	// Definir las rutas y sus métodos HTTP
 
 	r.HandleFunc("/", routes.HomeHandler).Methods("GET")
 
@@ -53,9 +63,13 @@ func main() {
 	r.HandleFunc("/fallecidos", routes.CreateFallecidoHandler).Methods("POST")
 	r.HandleFunc("/fallecidos/{id}", routes.DeleteFallecidoHandler).Methods("DELETE")
 
+	// Configurar el encabezado CORS
+
 	headers := handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"})
 	methods := handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE", "OPTIONS"})
 	origins := handlers.AllowedOrigins([]string{"*"})
+
+	// Iniciar el servidor en el puerto 3000
 
 	http.ListenAndServe(":3000", handlers.CORS(headers, methods, origins)(r))
 }

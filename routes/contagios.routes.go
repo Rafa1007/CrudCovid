@@ -9,12 +9,14 @@ import (
 	"github.com/gorilla/mux"
 )
 
+// GetContagiosHandler obtiene todos los registros de contagios
 func GetContagiosHandler(w http.ResponseWriter, r *http.Request) {
 	var contagio []models.Contagio
 	db.DB.Find(&contagio)
 	json.NewEncoder(w).Encode(&contagio)
-
 }
+
+// GetContagioHandler obtiene un registro de contagio por su ID
 func GetContagioHandler(w http.ResponseWriter, r *http.Request) {
 	var contagio models.Contagio
 	params := mux.Vars(r)
@@ -27,8 +29,9 @@ func GetContagioHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	json.NewEncoder(w).Encode(&contagio)
-
 }
+
+// CreateContagiosHandler crea un nuevo registro de contagio
 func CreateContagiosHandler(w http.ResponseWriter, r *http.Request) {
 	var contagio models.Contagio
 	err := json.NewDecoder(r.Body).Decode(&contagio)
@@ -56,6 +59,7 @@ func CreateContagiosHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(&contagio)
 }
 
+// DeleteContagiosHandler elimina un registro de contagio por su ID
 func DeleteContagiosHandler(w http.ResponseWriter, r *http.Request) {
 	var contagio models.Contagio
 	params := mux.Vars(r)
@@ -64,7 +68,7 @@ func DeleteContagiosHandler(w http.ResponseWriter, r *http.Request) {
 
 	if contagio.ID == 0 {
 		w.WriteHeader(http.StatusNotFound)
-		w.Write([]byte("Hospitalizado  not found"))
+		w.Write([]byte("Contagio not found"))
 		return
 	}
 
@@ -72,6 +76,7 @@ func DeleteContagiosHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNoContent)
 }
 
+// UpdateContagioStatusHandler actualiza el estado de un registro de contagio
 func UpdateContagioStatusHandler(w http.ResponseWriter, r *http.Request) {
 	// Crear una variable para almacenar el contagio que se va a actualizar
 	var contagio models.Contagio
