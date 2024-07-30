@@ -12,3 +12,5 @@ Estos son los comandos para descargar todas las dependencias para backend y fron
      este es el comando:
         npm install axios chart.js date-fns react react-chartjs-2 react-dom react-modal react-router-dom
         npm install --save-dev @types/react @types/react-dom @vitejs/plugin-react eslint eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-react-refresh vite
+
+Esto seria todo
