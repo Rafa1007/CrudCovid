@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 const EditContagioForm = ({ contagio, onUpdateContagio, onCancel }) => {
+  // Estado para almacenar los datos del formulario de edición
   const [formData, setFormData] = useState({
     nombre: contagio.nombre,
     apellido: contagio.apellido,
@@ -10,12 +11,12 @@ const EditContagioForm = ({ contagio, onUpdateContagio, onCancel }) => {
     sexo: contagio.sexo,
     status: contagio.status,
   });
-
+  // Función para manejar los cambios en los campos del formulario
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prevState => ({ ...prevState, [name]: value }));
   };
-
+   // Función para manejar el envío del formulario
   const handleSubmit = (e) => {
     e.preventDefault();
     // Convertir `edad` a número
@@ -26,6 +27,7 @@ const EditContagioForm = ({ contagio, onUpdateContagio, onCancel }) => {
       casos_confirmados: parseInt(formData.casos_confirmados, 10),
       login_id: parseInt(formData.login_id, 10)
     };
+    // Llamar a la función onUpdateContagio pasando el contagio actualizado
     onUpdateContagio(updatedContagio);
   };
 

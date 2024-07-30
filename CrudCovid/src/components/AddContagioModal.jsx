@@ -3,6 +3,7 @@ import axios from 'axios';
 import './AddContagioModal.css';
 
 const AddContagioModal = ({ showModal, onClose, onSave }) => {
+  // Estado para almacenar los datos del formulario
   const [formData, setFormData] = useState({
     nombre: '',
     apellido: '',
@@ -15,13 +16,16 @@ const AddContagioModal = ({ showModal, onClose, onSave }) => {
     status: ''
   });
 
+  // Función para manejar los cambios en los campos del formulario
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
+  // Función para manejar el envío del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // Preparar los datos para el envío
     const dataToSend = {
       ...formData,
       edad: parseInt(formData.edad, 10),
@@ -33,9 +37,12 @@ const AddContagioModal = ({ showModal, onClose, onSave }) => {
     console.log('Datos a enviar:', dataToSend);
 
     try {
+      // Enviar los datos al backend
       const response = await axios.post('http://localhost:3000/contagios', dataToSend);
       console.log('Contagio creado:', response.data);
+      // Guardar el nuevo contagio en la lista
       onSave(response.data);
+      // Cerrar el modal
       onClose();
     } catch (error) {
       console.error('Hubo un error al crear el contagio!', error);
@@ -98,10 +105,7 @@ const AddContagioModal = ({ showModal, onClose, onSave }) => {
               <option value="Fallecido">Fallecido</option>
             </select>
           </div>
-          <div className="modal-buttons">
-            <button type="submit" className="button-save">Guardar</button>
-            <button type="button" className="cancel-button" onClick={onClose}>Cancelar</button>
-          </div>
+          <button type="submit">Guardar</button>
         </form>
       </div>
     </div>

@@ -5,17 +5,23 @@ import AddContagioModal from './AddContagioModal';
 import EditContagioForm from './EditContagioForm';
 
 const ContagiosList = () => {
+  // Estado para almacenar la lista de contagios
   const [contagios, setContagios] = useState([]);
+  // Estado para controlar la visibilidad del modal para agregar contagios
   const [showAddModal, setShowAddModal] = useState(false);
+  // Estado para almacenar el contagio seleccionado para editar
   const [selectedContagio, setSelectedContagio] = useState(null);
 
+  // useEffect para obtener la lista de contagios al montar el componente
   useEffect(() => {
     fetchContagios();
   }, []);
 
+  // Función para obtener la lista de contagios desde el backend
   const fetchContagios = () => {
     axios.get('http://localhost:3000/contagios')
       .then(response => {
+        // Actualizar el estado con la lista de contagios
         setContagios(response.data);
       })
       .catch(error => {
@@ -23,20 +29,28 @@ const ContagiosList = () => {
       });
   };
 
+  // Función para manejar la adición de un nuevo contagio
   const handleAddContagio = (newContagio) => {
+    // Agregar el nuevo contagio a la lista existente
     setContagios([...contagios, newContagio]);
+    // Ocultar el modal de agregar contagio
     setShowAddModal(false);
   };
 
+  // Función para manejar la selección de un contagio para edición
   const handleEdit = (contagio) => {
     setSelectedContagio(contagio);
   };
 
+  // Función para manejar la actualización de un contagio
   const handleUpdateContagio = async (updatedContagio) => {
     try {
+      // Enviar la actualización al backend
       await axios.put(`http://localhost:3000/contagios/${updatedContagio.id}`, updatedContagio);
-      fetchContagios(); // Refresh the list
-      setSelectedContagio(null); // Close the form
+      // Refrescar la lista de contagios
+      fetchContagios();
+      // Deseleccionar el contagio para cerrar el formulario de edición
+      setSelectedContagio(null);
     } catch (error) {
       console.error('Error updating contagio:', error);
       console.error('Error response:', error.response);
@@ -44,9 +58,11 @@ const ContagiosList = () => {
     }
   };
 
+  // Función para manejar la eliminación de un contagio
   const handleDelete = (id) => {
     axios.delete(`http://localhost:3000/contagios/${id}`)
       .then(() => {
+        // Eliminar el contagio de la lista en el estado
         setContagios(contagios.filter(contagio => contagio.id !== id));
       })
       .catch(error => {
@@ -70,7 +86,7 @@ const ContagiosList = () => {
             <th>Fecha de Registro</th>
             <th>Sexo</th>
             <th>Estatus</th>
-            <th>Accion</th>
+            <th>Acción</th>
           </tr>
         </thead>
         <tbody>

@@ -1,30 +1,35 @@
-// src/components/ContagiosChart.js
+// Importar las dependencias necesarias de React, Axios y Chart.js
 import React, { useEffect, useState } from 'react';
 import { Line, Bar } from 'react-chartjs-2';
 import axios from 'axios';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend } from 'chart.js';
 
-// Registrar los componentes de Chart.js
+// Registrar los componentes de Chart.js que se usarán en las gráficas
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend);
 
 const ContagiosChart = () => {
+  // Definir estados locales para almacenar los datos de las gráficas
   const [lineChartData, setLineChartData] = useState(null);
   const [barChartData, setBarChartData] = useState(null);
 
+  // Utilizar useEffect para llamar a la función fetchContagiosData cuando el componente se monta
   useEffect(() => {
     fetchContagiosData();
   }, []);
 
+  // Función para obtener datos de contagios desde el backend
   const fetchContagiosData = async () => {
     try {
+      // Realizar una solicitud GET a la API para obtener los datos de contagios
       const response = await axios.get('http://localhost:3000/contagios');
       const contagios = response.data;
 
-      // Datos para la gráfica de líneas
-      const lineLabels = [];
-      const lineData = [];
-      const contagiosByDate = {};
+      // Preparar los datos para la gráfica de líneas
+      const lineLabels = []; // Etiquetas del eje X
+      const lineData = []; // Datos del eje Y
+      const contagiosByDate = {}; // Objeto para contar contagios por fecha
 
+      // Procesar cada contagio para contar los casos por fecha
       contagios.forEach(contagio => {
         const date = new Date(contagio.fecha_registro).toLocaleDateString('es-ES', {
           year: 'numeric',
@@ -36,21 +41,25 @@ const ContagiosChart = () => {
         contagiosByDate[date] += 1;
       });
 
+      // Rellenar las etiquetas y datos de la gráfica de líneas
       for (const date in contagiosByDate) {
         lineLabels.push(date);
         lineData.push(contagiosByDate[date]);
       }
 
-      // Datos para la gráfica de barras
+      // Preparar los datos para la gráfica de barras
       const ageRanges = ['0-9', '10-19', '20-29', '30-39', '40-49', '50-59', '60-69', '70+'];
       const contagiosByAgeRange = {};
 
+      // Inicializar el contador de contagios por rango de edad
       ageRanges.forEach(range => contagiosByAgeRange[range] = 0);
 
+      // Procesar cada contagio para contar los casos por rango de edad
       contagios.forEach(contagio => {
-        const age = contagio.edad; // Assuming 'edad' is the age field
+        const age = contagio.edad; // Suponiendo que 'edad' es el campo de la edad
         let range;
 
+        // Determinar el rango de edad correspondiente
         if (age >= 70) range = '70+';
         else if (age >= 60) range = '60-69';
         else if (age >= 50) range = '50-59';
@@ -63,9 +72,11 @@ const ContagiosChart = () => {
         contagiosByAgeRange[range] += 1;
       });
 
+      // Etiquetas y datos para la gráfica de barras
       const barLabels = ageRanges;
       const barData = ageRanges.map(range => contagiosByAgeRange[range]);
 
+      // Actualizar el estado con los datos de la gráfica de líneas
       if (lineLabels.length > 0 && lineData.length > 0) {
         setLineChartData({
           labels: lineLabels,
@@ -81,6 +92,7 @@ const ContagiosChart = () => {
         });
       }
 
+      // Actualizar el estado con los datos de la gráfica de barras
       if (barLabels.length > 0 && barData.length > 0) {
         setBarChartData({
           labels: barLabels,
@@ -96,6 +108,7 @@ const ContagiosChart = () => {
         });
       }
     } catch (error) {
+      // Manejar errores en la solicitud
       console.error('Error fetching contagios data:', error);
     }
   };
@@ -104,9 +117,11 @@ const ContagiosChart = () => {
     <div>
       <h2>Contagios de COVID</h2>
       <div>
+        {/* Mostrar la gráfica de líneas si hay datos, de lo contrario mostrar un mensaje de carga */}
         {lineChartData ? <Line data={lineChartData} /> : <p>Cargando datos para la gráfica de líneas...</p>}
       </div>
       <div>
+        {/* Mostrar la gráfica de barras si hay datos, de lo contrario mostrar un mensaje de carga */}
         {barChartData ? <Bar data={barChartData} /> : <p>Cargando datos para la gráfica de barras...</p>}
       </div>
     </div>
