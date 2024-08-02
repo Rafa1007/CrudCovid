@@ -173,29 +173,6 @@
   background-color: #c82333; /* Rojo oscuro */
 }
 
-/* Contenedor de la barra de búsqueda */
-.search-container {
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: center;
-}
-
-/* Estilo para el campo de búsqueda */
-.search-input {
-  width: 300px;
-  padding: 10px;
-  border: 2px solid #007bff; /* Borde azul */
-  border-radius: 5px;
-  font-size: 16px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.search-input:focus {
-  border-color: #0056b3; /* Color de borde al enfocar */
-  outline: none;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
 
 /* Botón para agregar nuevo contagio */
 .button-add {

@@ -9,15 +9,21 @@ import AuthContainer from './components/componentsjsx/Login/AuthContainer';
 
 const App = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [username, setUsername] = useState('');
 
-    const handleLoginSuccess = () => {
+    const handleLoginSuccess = (user) => {
         setIsAuthenticated(true);
+        setUsername(user.username);
+    };
+
+    const handleLogout = () => {
+        setIsAuthenticated(false);
+        setUsername('');
     };
 
     return (
         <Router>
-            {/* Show Header and Footer only if authenticated */}
-            {isAuthenticated && <Header />}
+            {isAuthenticated && <Header username={username} onLogout={handleLogout} />}
             <Routes>
                 <Route
                     path="/"
@@ -37,6 +43,7 @@ const App = () => {
                     path="/contagios"
                     element={isAuthenticated ? <ContagiosList /> : <Navigate to="/" replace />}
                 />
+                {/* Agrega las demás rutas aquí */}
             </Routes>
             {isAuthenticated && <Footer />}
         </Router>

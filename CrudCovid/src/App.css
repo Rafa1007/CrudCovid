@@ -1,29 +1,29 @@
-/* App.css */
+/* src/App.css */
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-  }
-  
-  header {
-    background-color: #333;
-    color: white;
-    padding: 15px;
-    text-align: center;
-  }
-  
-  header nav {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-  }
-  
-  header nav a {
-    color: white;
-    text-decoration: none;
-    padding: 10px 20px;
-  }
-  
-  header nav a:hover {
-    background-color: #555;
-  }
-  
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  background-color: #333;
+  color: white;
+  padding: 15px;
+  text-align: center;
+}
+
+/* Aplicar solo a header que no es del componente Header */
+body:not(.header-container) header {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+body:not(.header-container) header a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+}
+
+body:not(.header-container) header a:hover {
+  background-color: #555;
+}
