@@ -8,7 +8,8 @@ const Header = () => {
     <header className="header">
       <nav className="nav">
         <ul className="nav-list">
-          <li className="nav-item"><Link to="/">Inicio</Link></li>
+        <li className="nav-item"><Link to="/"></Link></li>
+          <li className="nav-item"><Link to="/home">Inicio</Link></li>
           <li className="nav-item"><Link to="/contagios">Contagios</Link></li>
           <li className="nav-item"><Link to="/hospitalizados">Hospitalizados</Link></li>
           <li className="nav-item"><Link to="/recuperados">Recuperados</Link></li>
