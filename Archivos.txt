@@ -3,6 +3,10 @@ Estos son los comandos para descargar todas las dependencias para backend y fron
 1.-Backend:
     1.-este comando se ejecuta en terminal en larpeta raiz:
         go get github.com/felixge/httpsnoop github.com/gorilla/handlers github.com/gorilla/mux github.com/jackc/pgpassfile github.com/jackc/pgservicefile github.com/jackc/pgx/v5 github.com/jackc/puddle/v2 github.com/jinzhu/inflection github.com/jinzhu/now gorm.io/driver/postgres gorm.io/gorm
+        go install github.com/air-verse/air@latest 
+            air init 
+            air
+
 2.-frontend 
     1.-este comando se ejecuta en terminal en la carpeta donde esta react que es CrudCovid 
     es decir esta la direccion en donde guardaste el proyecto por ejemplo:
@@ -12,5 +16,6 @@ Estos son los comandos para descargar todas las dependencias para backend y fron
      este es el comando:
         npm install axios chart.js date-fns react react-chartjs-2 react-dom react-modal react-router-dom
         npm install --save-dev @types/react @types/react-dom @vitejs/plugin-react eslint eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-react-refresh vite
+        npm install react-icons
 
 Esto seria todo
