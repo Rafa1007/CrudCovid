@@ -8,6 +8,7 @@ import (
 
 type Hospitalizado struct {
 	gorm.Model
+	ID                   uint      `json:"id" gorm:"primaryKey"`
 	Nombre               string    `gorm:"not null" json:"nombre"`
 	Apellido             string    `gorm:"not null" json:"apellido"`
 	FechaRegistro        time.Time `gorm:"not null" json:"fecha_registro"`
@@ -16,4 +17,6 @@ type Hospitalizado struct {
 	NumeroHospitalizados int       `gorm:"not null" json:"numero_hospitalizados"`
 	LoginID              uint      `gorm:"not null" json:"login_id"`
 	Sexo                 string    `gorm:"not null" json:"sexo"`
+	Status               string    `gorm:"not null" json:"status"` // Nuevo campo
+
 }

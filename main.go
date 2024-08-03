@@ -52,6 +52,7 @@ func main() {
 	r.HandleFunc("/hospitalizados/{id}", routes.GetHospitalizadoHandler).Methods("GET")
 	r.HandleFunc("/hospitalizados", routes.CreateHospitalizadoHandler).Methods("POST")
 	r.HandleFunc("/hospitalizados/{id}", routes.DeleteHospitalizadoHandler).Methods("DELETE")
+	r.HandleFunc("/hospitalizados/{id}", routes.UpdateHospitalizadoHandler).Methods("PUT")
 
 	r.HandleFunc("/recuperados", routes.GetRecuperadosHandler).Methods("GET")
 	r.HandleFunc("/recuperados/{id}", routes.GetRecuperadoHandler).Methods("GET")
