@@ -35,6 +35,7 @@ const SignUp = ({ onToggle }) => {
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"
+                    className="input-field"
                     placeholder="First Name"
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
@@ -42,6 +43,7 @@ const SignUp = ({ onToggle }) => {
                 />
                 <input
                     type="text"
+                    className="input-field"
                     placeholder="Last Name"
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
@@ -49,6 +51,7 @@ const SignUp = ({ onToggle }) => {
                 />
                 <input
                     type="email"
+                    className="input-field"
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -56,6 +59,7 @@ const SignUp = ({ onToggle }) => {
                 />
                 <input
                     type="text"
+                    className="input-field"
                     placeholder="Username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
@@ -63,6 +67,7 @@ const SignUp = ({ onToggle }) => {
                 />
                 <input
                     type="password"
+                    className="input-field"
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -70,6 +75,7 @@ const SignUp = ({ onToggle }) => {
                 />
                 <input
                     type="number"
+                    className="input-field"
                     placeholder="Age"
                     value={age}
                     onChange={(e) => setAge(e.target.value)}

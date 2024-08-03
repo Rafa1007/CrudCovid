@@ -1,3 +1,13 @@
+ /* === ESTILOS GLOBALES === */
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+/* Contenedor principal */
 .container {
     display: flex;
     justify-content: center;
@@ -5,16 +15,88 @@
     height: 100vh;
 }
 
+/* Cuadro que aloja el contenido */
+.box {
+    padding: 40px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+}
+
+/* Estilos del formulario de autenticación */
 .auth-form {
     max-width: 400px;
     width: 100%;
     padding: 20px;
-    border: 1px solid #ccc;
     border-radius: 8px;
     background: #fff;
 }
 
+/* Estilos para los mensajes de error */
 .error-message {
     color: red;
     margin-bottom: 10px;
+}
+
+/* Estilos específicos para AuthContainer */
+.auth-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 400px;
+    text-align: center;
+}
+
+.text h2 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+
+/* Estilos específicos para SignIn y SignUp */
+.sign-in .text h2 {
+    color: blue;
+}
+
+.sign-up .text h2 {
+    color: green;
+}
+
+/* Estilizar botones */
+button {
+    background-color: #000000;
+    color: white;
+    border: none;
+    padding: 12px 13px;
+    border-radius: 15px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #6482a1;
+}
+
+/* Estilizar campos de entrada */
+.input-field {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Separar campos de entrada en Sign Up */
+.sign-up .input-field {
+    margin-bottom: 40px; /* Mayor espaciado entre los campos de Sign Up */
 }
