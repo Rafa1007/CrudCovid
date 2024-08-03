@@ -1,4 +1,3 @@
-// src/components/componentsjsx/Login/AuthContainer.jsx
 import React, { useState } from 'react';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
@@ -12,23 +11,14 @@ const AuthContainer = ({ onLoginSuccess }) => {
     };
 
     return (
-        <div id="container" className={`container ${isSignIn ? 'sign-in' : 'sign-up'}`}>
-            <div className="row">
+        <div className="container">
+            <div className="background-box"></div> {/* Cuadro de fondo */}
+            <div className="box auth-form-container">
                 {isSignIn ? (
                     <SignIn onToggle={toggleForm} onLoginSuccess={onLoginSuccess} />
                 ) : (
                     <SignUp onToggle={toggleForm} />
                 )}
-            </div>
-            <div className="row content-row">
-                <div className="col align-items-center flex-col">
-                    <div className={`text ${isSignIn ? 'sign-in' : 'sign-up'}`}>
-                        <h2>
-                            {isSignIn ? 'Welcome Back' : 'Join Us Today'}
-                        </h2>
-                    </div>
-                    <div className={`img ${isSignIn ? 'sign-in' : 'sign-up'}`} />
-                </div>
             </div>
         </div>
     );

@@ -1,4 +1,3 @@
-// src/components/componentsjsx/Login/SignIn.jsx
 import React, { useState } from 'react';
 import axios from 'axios';
 
@@ -27,6 +26,7 @@ const SignIn = ({ onToggle, onLoginSuccess }) => {
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"
+                    className="input-field"
                     placeholder="Username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
@@ -34,6 +34,7 @@ const SignIn = ({ onToggle, onLoginSuccess }) => {
                 />
                 <input
                     type="password"
+                    className="input-field"
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
