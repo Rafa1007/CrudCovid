@@ -9,14 +9,12 @@ import (
 type Hospitalizado struct {
 	gorm.Model
 	ID                   uint      `json:"id" gorm:"primaryKey"`
-	Nombre               string    `gorm:"not null" json:"nombre"`
-	Apellido             string    `gorm:"not null" json:"apellido"`
-	FechaRegistro        time.Time `gorm:"not null" json:"fecha_registro"`
-	Estado               string    `gorm:"not null" json:"estado"`
-	Edad                 int       `gorm:"not null" json:"edad"`
-	NumeroHospitalizados int       `gorm:"not null" json:"numero_hospitalizados"`
-	LoginID              uint      `gorm:"not null" json:"login_id"`
-	Sexo                 string    `gorm:"not null" json:"sexo"`
-	Status               string    `gorm:"not null" json:"status"` // Nuevo campo
-
+	Nombre               string    `json:"nombre"`
+	Apellido             string    `json:"apellido"`
+	FechaRegistro        time.Time `json:"fecha_registro"`
+	Estado               string    `json:"estado"`
+	Edad                 int       `json:"edad"`
+	NumeroHospitalizados int       `json:"numero_hospitalizados"`
+	Sexo                 string    `json:"sexo"`
+	Status               string    `json:"status"`
 }

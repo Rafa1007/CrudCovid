@@ -117,7 +117,6 @@ func UpdateContagioStatusHandler(w http.ResponseWriter, r *http.Request) {
 			Estado:               contagio.Estado,
 			Edad:                 contagio.Edad,
 			NumeroHospitalizados: contagio.CasosConfirmados,
-			LoginID:              contagio.LoginID,
 			Sexo:                 contagio.Sexo,
 		}
 		// Guardar el nuevo registro de hospitalizado en la base de datos
