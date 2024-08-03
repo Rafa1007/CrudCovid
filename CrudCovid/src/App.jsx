@@ -7,6 +7,7 @@ import ContagiosList from './components/ContagiosList';
 import Home from './components/Home';
 import AuthContainer from './components/componentsjsx/Login/AuthContainer';
 import HospitalizadosList from './components/componentsjsx/Hospitalizados/HospitalizadosList';
+import RecuperadosList from './components/componentsjsx/Recuperados/RecuperadosList'; // Asegúrate de que la ruta sea correcta
 
 const App = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -45,8 +46,12 @@ const App = () => {
                     element={isAuthenticated ? <ContagiosList /> : <Navigate to="/" replace />}
                 />
                 <Route 
-                    path = "/hospitalizados"
-                    element = {isAuthenticated ? <HospitalizadosList/> : <Navigate to="/" replace />}
+                    path="/hospitalizados"
+                    element={isAuthenticated ? <HospitalizadosList/> : <Navigate to="/" replace />}
+                />
+                <Route
+                    path="/recuperados"
+                    element={isAuthenticated ? <RecuperadosList /> : <Navigate to="/" replace />}
                 />
                 {/* Agrega las demás rutas aquí */}
             </Routes>

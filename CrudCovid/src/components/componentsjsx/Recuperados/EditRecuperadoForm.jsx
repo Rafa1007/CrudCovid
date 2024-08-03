@@ -1,0 +1,102 @@
+import React, { useState } from 'react';
+
+const EditRecuperadoForm = ({ recuperado, onUpdateRecuperado, onCancel }) => {
+  const [formData, setFormData] = useState({
+    nombre: recuperado.nombre,
+    apellido: recuperado.apellido,
+    edad: recuperado.edad,
+    casos_confirmados: recuperado.casos_confirmados,
+    login_id: recuperado.login_id,
+    sexo: recuperado.sexo,
+    status: recuperado.status,
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({ ...prevState, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const updatedRecuperado = {
+      ...recuperado,
+      ...formData,
+      edad: parseInt(formData.edad, 10),
+      casos_confirmados: parseInt(formData.casos_confirmados, 10),
+      login_id: parseInt(formData.login_id, 10)
+    };
+    onUpdateRecuperado(updatedRecuperado);
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label>Nombre:</label>
+        <input
+          type="text"
+          name="nombre"
+          value={formData.nombre}
+          onChange={handleChange}
+        />
+      </div>
+      <div>
+        <label>Apellido:</label>
+        <input
+          type="text"
+          name="apellido"
+          value={formData.apellido}
+          onChange={handleChange}
+        />
+      </div>
+      <div>
+        <label>Edad:</label>
+        <input
+          type="number"
+          name="edad"
+          value={formData.edad}
+          onChange={handleChange}
+        />
+      </div>
+      <div>
+        <label>Casos Confirmados:</label>
+        <input
+          type="number"
+          name="casos_confirmados"
+          value={formData.casos_confirmados}
+          onChange={handleChange}
+        />
+      </div>
+      <div>
+        <label>Login ID:</label>
+        <input
+          type="number"
+          name="login_id"
+          value={formData.login_id}
+          onChange={handleChange}
+        />
+      </div>
+      <div>
+        <label>Sexo:</label>
+        <input
+          type="text"
+          name="sexo"
+          value={formData.sexo}
+          onChange={handleChange}
+        />
+      </div>
+      <div>
+        <label>Status:</label>
+        <input
+          type="text"
+          name="status"
+          value={formData.status}
+          onChange={handleChange}
+        />
+      </div>
+      <button type="submit">Actualizar</button>
+      <button type="button" onClick={onCancel}>Cancelar</button>
+    </form>
+  );
+};
+
+export default EditRecuperadoForm;
