@@ -37,6 +37,13 @@ func CreateRecuperadoHandler(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Invalid request payload"))
 		return
 	}
+
+	// Validar que todos los campos requeridos no estén vacíos
+	if recuperado.Nombre == "" || recuperado.Apellido == "" || recuperado.Estado == "" || recuperado.Edad == 0 || recuperado.FechaRegistro.IsZero() || recuperado.Sexo == "" {
+		w.WriteHeader(http.StatusBadRequest)
+		w.Write([]byte("Missing required fields"))
+		return
+	}
 	createdrecuperado := db.DB.Create(&recuperado)
 	if createdrecuperado.Error != nil {
 		w.WriteHeader(http.StatusInternalServerError)

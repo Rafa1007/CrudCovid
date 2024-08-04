@@ -1,108 +1,82 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const AddRecuperadoModal = ({ showModal, onClose, onSave }) => {
   const [formData, setFormData] = useState({
     nombre: '',
     apellido: '',
+    fecha_registro: '',
+    estado: '',
     edad: '',
-    casos_confirmados: '',
-    login_id: '',
+    numero_recuperados: '',
+    // login_id: '', // Descomenta este campo si es necesario
     sexo: '',
-    status: '',
   });
 
-  const handleChange = (e) => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prevState => ({ ...prevState, [name]: value }));
+    setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const newRecuperado = {
+
+    const dataToSend = {
       ...formData,
       edad: parseInt(formData.edad, 10),
-      casos_confirmados: parseInt(formData.casos_confirmados, 10),
-      login_id: parseInt(formData.login_id, 10)
+      numero_recuperados: parseInt(formData.numero_recuperados, 10),
+      fecha_registro: new Date(formData.fecha_registro).toISOString(),
     };
-    onSave(newRecuperado);
+
+    try {
+      const response = await axios.post('http://localhost:3000/recuperados', dataToSend);
+      onSave(response.data);
+      onClose();
+    } catch (error) {
+      console.error('Hubo un error al crear un nuevo registro!', error);
+      alert(`Error: ${error.response?.status} ${error.response?.statusText}`);
+    }
   };
 
   if (!showModal) return null;
 
   return (
-    <div className="modal-overlay">
+    <div className="modal">
       <div className="modal-content">
+        <span className="close" onClick={onClose}>&times;</span>
         <h2>Agregar Recuperado</h2>
         <form onSubmit={handleSubmit}>
           <div>
             <label>Nombre:</label>
-            <input
-              type="text"
-              name="nombre"
-              value={formData.nombre}
-              onChange={handleChange}
-              required
-            />
+            <input type="text" name="nombre" value={formData.nombre} onChange={handleInputChange} />
           </div>
           <div>
             <label>Apellido:</label>
-            <input
-              type="text"
-              name="apellido"
-              value={formData.apellido}
-              onChange={handleChange}
-              required
-            />
+            <input type="text" name="apellido" value={formData.apellido} onChange={handleInputChange} />
+          </div>
+          <div>
+            <label>Fecha de Registro:</label>
+            <input type="datetime-local" name="fecha_registro" value={formData.fecha_registro} onChange={handleInputChange} />
+          </div>
+          <div>
+            <label>Estado:</label>
+            <input type="text" name="estado" value={formData.estado} onChange={handleInputChange} />
           </div>
           <div>
             <label>Edad:</label>
-            <input
-              type="number"
-              name="edad"
-              value={formData.edad}
-              onChange={handleChange}
-              required
-            />
+            <input type="number" name="edad" value={formData.edad} onChange={handleInputChange} />
           </div>
           <div>
-            <label>Casos Confirmados:</label>
-            <input
-              type="number"
-              name="casos_confirmados"
-              value={formData.casos_confirmados}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div>
-            <label>Login ID:</label>
-            <input
-              type="number"
-              name="login_id"
-              value={formData.login_id}
-              onChange={handleChange}
-              required
-            />
+            <label>Número de Recuperados:</label>
+            <input type="number" name="numero_recuperados" value={formData.numero_recuperados} onChange={handleInputChange} />
           </div>
           <div>
             <label>Sexo:</label>
-            <input
-              type="text"
-              name="sexo"
-              value={formData.sexo}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div>
-            <label>Status:</label>
-            <input
-              type="text"
-              name="status"
-              value={formData.status}
-              onChange={handleChange}
-              required
-            />
+            <select name="sexo" value={formData.sexo} onChange={handleInputChange}>
+              <option value="">Selecciona una opción</option>
+              <option value="Hombre">Hombre</option>
+              <option value="Mujer">Mujer</option>
+            </select>
           </div>
           <button type="submit">Guardar</button>
           <button type="button" onClick={onClose}>Cancelar</button>
