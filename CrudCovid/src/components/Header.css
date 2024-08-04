@@ -1,17 +1,26 @@
-/* src/components/Header.css */
 .header {
-  background-color: #333;
+  background: linear-gradient(90deg, #333, #555);
   color: white;
-  padding: 15px 30px; /* Tamaño más grande */
+  padding: 15px 30px;
   position: sticky;
   top: 0;
   z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header .logo {
+  height: 40px;
+  margin-right: 20px;
 }
 
 .header .nav {
   display: flex;
-  justify-content: space-between; /* Menú a la izquierda, perfil a la derecha */
+  justify-content: space-between;
   align-items: center;
+  flex-grow: 1;
 }
 
 .header .nav-list {
@@ -19,6 +28,8 @@
   padding: 0;
   margin: 0;
   display: flex;
+  justify-content: center;
+  flex-grow: 1;
 }
 
 .header .nav-item {
@@ -29,11 +40,12 @@
   color: white;
   text-decoration: none;
   font-size: 16px;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .header .nav-item a:hover {
   color: #007bff;
+  transform: scale(1.1);
 }
 
 .header .profile-menu {
@@ -58,14 +70,32 @@
   font-size: 16px;
 }
 
-.header .logout-button {
-  background: none;
-  border: none;
-  color: white;
-  cursor: pointer;
-  font-size: 14px;
-}
+/* Media Queries para dispositivos móviles */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: center;
+  }
 
-.header .logout-button:hover {
-  text-decoration: underline;
+  .header .nav {
+    flex-direction: column;
+  }
+
+  .header .nav-list {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .header .nav-item {
+    margin: 10px 0;
+  }
+
+  .header .profile-menu {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .header .search-bar {
+    margin-bottom: 10px;
+  }
 }
