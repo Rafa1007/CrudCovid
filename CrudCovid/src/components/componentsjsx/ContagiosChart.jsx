@@ -1,4 +1,4 @@
-// Importar las dependencias necesarias de React, Axios y Chart.js
+ // Importar las dependencias necesarias de React, Axios y Chart.js
 import React, { useEffect, useState } from 'react';
 import { Line, Bar } from 'react-chartjs-2';
 import axios from 'axios';
@@ -84,9 +84,14 @@ const ContagiosChart = () => {
             {
               label: 'Contagios de COVID',
               data: lineData,
-              backgroundColor: 'rgba(75, 192, 192, 0.6)',
+              backgroundColor: 'rgba(75, 192, 192, 0.2)',
               borderColor: 'rgba(75, 192, 192, 1)',
-              borderWidth: 1,
+              borderWidth: 2,
+              tension: 0.3,
+              pointBackgroundColor: 'rgba(75, 192, 192, 1)',
+              pointBorderColor: '#fff',
+              pointHoverBackgroundColor: '#fff',
+              pointHoverBorderColor: 'rgba(75, 192, 192, 1)',
             },
           ],
         });
@@ -114,15 +119,85 @@ const ContagiosChart = () => {
   };
 
   return (
-    <div>
-      <h2>Contagios de COVID</h2>
-      <div>
+    <div style={{ padding: '20px' }}>
+      <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Contagios de COVID</h2>
+      <div style={{ marginBottom: '10px' }}>
         {/* Mostrar la gráfica de líneas si hay datos, de lo contrario mostrar un mensaje de carga */}
-        {lineChartData ? <Line data={lineChartData} /> : <p>Cargando datos para la gráfica de líneas...</p>}
+        {lineChartData ? (
+          <Line 
+            data={lineChartData} 
+            options={{
+              responsive: true,
+              plugins: {
+                legend: {
+                  position: 'top',
+                },
+                title: {
+                  display: true,
+                  text: 'Contagios de COVID a lo Largo del Tiempo',
+                  font: {
+                    size: 18,
+                  },
+                },
+              },
+              scales: {
+                x: {
+                  title: {
+                    display: true,
+                    text: 'Fecha',
+                  },
+                },
+                y: {
+                  title: {
+                    display: true,
+                    text: 'Número de Contagios',
+                  },
+                },
+              },
+            }}
+          />
+        ) : (
+          <p>Cargando datos para la gráfica de líneas...</p>
+        )}
       </div>
       <div>
         {/* Mostrar la gráfica de barras si hay datos, de lo contrario mostrar un mensaje de carga */}
-        {barChartData ? <Bar data={barChartData} /> : <p>Cargando datos para la gráfica de barras...</p>}
+        {barChartData ? (
+          <Bar 
+            data={barChartData} 
+            options={{
+              responsive: true,
+              plugins: {
+                legend: {
+                  position: 'top',
+                },
+                title: {
+                  display: true,
+                  text: 'Contagios de COVID por Rango de Edad',
+                  font: {
+                    size: 18,
+                  },
+                },
+              },
+              scales: {
+                x: {
+                  title: {
+                    display: true,
+                    text: 'Rango de Edad',
+                  },
+                },
+                y: {
+                  title: {
+                    display: true,
+                    text: 'Número de Contagios',
+                  },
+                },
+              },
+            }}
+          />
+        ) : (
+          <p>Cargando datos para la gráfica de barras...</p>
+        )}
       </div>
     </div>
   );

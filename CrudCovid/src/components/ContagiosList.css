@@ -1,5 +1,6 @@
 /* ContagiosList.css */
 
+/* Modal */
 .modal {
   display: none;
   position: fixed;
@@ -10,7 +11,7 @@
   height: 100%;
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.5);
-  padding-top: 0px;
+  padding-top: 0;
 }
 
 .modal-content {
@@ -39,7 +40,7 @@
   cursor: pointer;
 }
 
-/* Estilo del contenido del modal */
+/* Modal Content */
 .modal-header {
   display: flex;
   justify-content: space-between;
@@ -84,7 +85,7 @@
   outline: none;
 }
 
-/* Estilo de los botones del modal */
+/* Modal Buttons */
 .modal-buttons {
   display: flex;
   justify-content: flex-end;
@@ -101,7 +102,7 @@
 }
 
 .button-save {
-  background-color: #28a745; /* Verde */
+  background-color: #28a745;
 }
 
 .button-save:hover {
@@ -109,19 +110,20 @@
 }
 
 .cancel-button {
-  background-color: #dc3545; /* Rojo */
+  background-color: #dc3545;
 }
 
 .cancel-button:hover {
   background-color: #c82333;
 }
 
-/* Estilo para la tabla */
+/* Table */
 .table-container {
   margin: 20px;
   padding: 10px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
 }
 
 .table-container table {
@@ -145,7 +147,7 @@
   background-color: #f1f1f1;
 }
 
-/* Botones en la tabla */
+/* Table Buttons */
 .button-edit,
 .button-delete {
   padding: 5px 10px;
@@ -157,26 +159,25 @@
 }
 
 .button-edit {
-  background-color: #007bff; /* Azul */
+  background-color: #007bff;
   margin-right: 5px;
 }
 
 .button-edit:hover {
-  background-color: #0056b3; /* Azul oscuro */
+  background-color: #0056b3;
 }
 
 .button-delete {
-  background-color: #dc3545; /* Rojo */
+  background-color: #dc3545;
 }
 
 .button-delete:hover {
-  background-color: #c82333; /* Rojo oscuro */
+  background-color: #c82333;
 }
 
-
-/* Botón para agregar nuevo contagio */
+/* Add Button */
 .button-add {
-  background-color: #28a745; /* Verde */
+  background-color: #000000;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -187,5 +188,6 @@
 }
 
 .button-add:hover {
-  background-color: #218838; /* Verde oscuro */
+  background-color: #218838;
 }
+
