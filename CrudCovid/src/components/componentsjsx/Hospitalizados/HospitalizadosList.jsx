@@ -65,6 +65,7 @@ const HospitalizadosList = () => {
                         <th>Edad</th>
                         <th>Fecha de Registro</th>
                         <th>Sexo</th>
+                        <th>Estatus</th>
                         <th>Acción</th>
                     </tr>
                 </thead>
@@ -77,6 +78,7 @@ const HospitalizadosList = () => {
                             <td>{hospitalizado.edad}</td>
                             <td>{new Date(hospitalizado.fecha_registro).toLocaleDateString()}</td>
                             <td>{hospitalizado.sexo}</td>
+                            <td>{hospitalizado.status}</td>
                             <td>
                                 <button onClick={() => handleEdit(hospitalizado)}>Editar</button>
                                 <button onClick={() => handleDelete(hospitalizado.id)}>Eliminar</button>

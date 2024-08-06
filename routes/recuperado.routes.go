@@ -70,3 +70,36 @@ func DeleteRecuperadoHandler(w http.ResponseWriter, r *http.Request) {
 	db.DB.Delete(&recuperado)
 	w.WriteHeader(http.StatusNoContent)
 }
+
+// UpdaterecuperadoHandler actualiza un recuperado existente
+func UpdateRecuperadoHandler(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+
+	var updatedrecuperado models.Recuperado
+	if err := json.NewDecoder(r.Body).Decode(&updatedrecuperado); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	var recuperado models.Recuperado
+	if result := db.DB.First(&recuperado, id); result.Error != nil {
+		http.Error(w, "recuperado not found", http.StatusNotFound)
+		return
+	}
+
+	recuperado.Nombre = updatedrecuperado.Nombre
+	recuperado.Apellido = updatedrecuperado.Apellido
+	recuperado.Estado = updatedrecuperado.Estado
+	recuperado.Edad = updatedrecuperado.Edad
+	recuperado.FechaRegistro = updatedrecuperado.FechaRegistro
+	recuperado.Sexo = updatedrecuperado.Sexo
+
+	if result := db.DB.Save(&recuperado); result.Error != nil {
+		http.Error(w, result.Error.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(recuperado)
+}

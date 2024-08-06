@@ -12,8 +12,8 @@ const Header = ({ username, onLogout }) => {
           <li className="nav-item"><Link to="/home">Inicio</Link></li>
           <li className="nav-item"><Link to="/contagios">Contagios</Link></li>
           <li className="nav-item"><Link to="/hospitalizados">Hospitalizados</Link></li>
-          <li className="nav-item"><Link to="/recuperados">Recuperados</Link></li>
-          <li className="nav-item"><Link to="/fallecidos">Fallecidos</Link></li>
+          {/* <li className="nav-item"><Link to="/recuperados">Recuperados</Link></li>
+          <li className="nav-item"><Link to="/fallecidos">Fallecidos</Link></li> */}
         </ul>
   
         <div className="profile-menu" aria-haspopup="true">
