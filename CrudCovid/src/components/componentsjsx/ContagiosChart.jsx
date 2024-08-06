@@ -1,16 +1,18 @@
- // Importar las dependencias necesarias de React, Axios y Chart.js
+// Importar las dependencias necesarias de React, Axios y Chart.js
 import React, { useEffect, useState } from 'react';
-import { Line, Bar } from 'react-chartjs-2';
+import { Line, Bar, Pie } from 'react-chartjs-2';
 import axios from 'axios';
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend } from 'chart.js';
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
 
 // Registrar los componentes de Chart.js que se usarán en las gráficas
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend);
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Title, Tooltip, Legend, ArcElement);
 
 const ContagiosChart = () => {
   // Definir estados locales para almacenar los datos de las gráficas
   const [lineChartData, setLineChartData] = useState(null);
   const [barChartData, setBarChartData] = useState(null);
+  const [stateBarChartData, setStateBarChartData] = useState(null);
+  const [genderPieChartData, setGenderPieChartData] = useState(null);
 
   // Utilizar useEffect para llamar a la función fetchContagiosData cuando el componente se monta
   useEffect(() => {
@@ -76,6 +78,37 @@ const ContagiosChart = () => {
       const barLabels = ageRanges;
       const barData = ageRanges.map(range => contagiosByAgeRange[range]);
 
+      // Preparar los datos para la gráfica de barras por estado
+      const contagiosByState = {};
+      contagios.forEach(contagio => {
+        const state = contagio.estado; // Suponiendo que 'estado' es el campo del estado
+        if (!contagiosByState[state]) {
+          contagiosByState[state] = 0;
+        }
+        contagiosByState[state] += 1;
+      });
+
+      // Ordenar los estados por el número de contagios y tomar los 10 con más contagios
+      const sortedStates = Object.keys(contagiosByState).sort((a, b) => contagiosByState[b] - contagiosByState[a]);
+      const topStates = sortedStates.slice(0, 10);
+      const stateLabels = topStates;
+      const stateData = topStates.map(state => contagiosByState[state]);
+
+      // Preparar los datos para la gráfica de pastel por género
+      const contagiosByGender = { 'Hombres': 0, 'Mujeres': 0 };
+      contagios.forEach(contagio => {
+        const gender = contagio.sexo; // Suponiendo que 'genero' es el campo del género
+        if (gender === 'Hombre') {
+          contagiosByGender['Hombres'] += 1;
+        } else if (gender === 'Mujer') {
+          contagiosByGender['Mujeres'] += 1;
+        }
+      });
+
+      // Etiquetas y datos para la gráfica de pastel
+      const genderLabels = Object.keys(contagiosByGender);
+      const genderData = Object.values(contagiosByGender);
+
       // Actualizar el estado con los datos de la gráfica de líneas
       if (lineLabels.length > 0 && lineData.length > 0) {
         setLineChartData({
@@ -112,6 +145,39 @@ const ContagiosChart = () => {
           ],
         });
       }
+
+      // Actualizar el estado con los datos de la gráfica de barras por estado
+      if (stateLabels.length > 0 && stateData.length > 0) {
+        setStateBarChartData({
+          labels: stateLabels,
+          datasets: [
+            {
+              label: 'Contagios por Estado',
+              data: stateData,
+              backgroundColor: 'rgba(255, 159, 64, 0.6)',
+              borderColor: 'rgba(255, 159, 64, 1)',
+              borderWidth: 1,
+            },
+          ],
+        });
+      }
+
+      // Actualizar el estado con los datos de la gráfica de pastel por género
+      if (genderLabels.length > 0 && genderData.length > 0) {
+        setGenderPieChartData({
+          labels: genderLabels,
+          datasets: [
+            {
+              label: 'Contagios por Género',
+              data: genderData,
+              backgroundColor: ['rgba(54, 162, 235, 0.6)', 'rgba(255, 99, 132, 0.6)'], // Azul para hombres y rosa para mujeres
+              borderColor: ['rgba(54, 162, 235, 1)', 'rgba(255, 99, 132, 1)'], // Azul para hombres y rosa para mujeres
+              borderWidth: 1,
+            },
+          ],
+        });
+      }
+
     } catch (error) {
       // Manejar errores en la solicitud
       console.error('Error fetching contagios data:', error);
@@ -121,83 +187,43 @@ const ContagiosChart = () => {
   return (
     <div style={{ padding: '20px' }}>
       <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Contagios de COVID</h2>
-      <div style={{ marginBottom: '10px' }}>
-        {/* Mostrar la gráfica de líneas si hay datos, de lo contrario mostrar un mensaje de carga */}
-        {lineChartData ? (
-          <Line 
-            data={lineChartData} 
-            options={{
-              responsive: true,
-              plugins: {
-                legend: {
-                  position: 'top',
-                },
-                title: {
-                  display: true,
-                  text: 'Contagios de COVID a lo Largo del Tiempo',
-                  font: {
-                    size: 18,
-                  },
-                },
-              },
-              scales: {
-                x: {
-                  title: {
-                    display: true,
-                    text: 'Fecha',
-                  },
-                },
-                y: {
-                  title: {
-                    display: true,
-                    text: 'Número de Contagios',
-                  },
-                },
-              },
-            }}
-          />
-        ) : (
-          <p>Cargando datos para la gráfica de líneas...</p>
-        )}
-      </div>
-      <div>
-        {/* Mostrar la gráfica de barras si hay datos, de lo contrario mostrar un mensaje de carga */}
-        {barChartData ? (
-          <Bar 
-            data={barChartData} 
-            options={{
-              responsive: true,
-              plugins: {
-                legend: {
-                  position: 'top',
-                },
-                title: {
-                  display: true,
-                  text: 'Contagios de COVID por Rango de Edad',
-                  font: {
-                    size: 18,
-                  },
-                },
-              },
-              scales: {
-                x: {
-                  title: {
-                    display: true,
-                    text: 'Rango de Edad',
-                  },
-                },
-                y: {
-                  title: {
-                    display: true,
-                    text: 'Número de Contagios',
-                  },
-                },
-              },
-            }}
-          />
-        ) : (
-          <p>Cargando datos para la gráfica de barras...</p>
-        )}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div style={{ width: '48%', height: '400px' }}>
+            {/* Mostrar la gráfica de líneas si hay datos, de lo contrario mostrar un mensaje */}
+            {lineChartData ? (
+              <Line data={lineChartData} />
+            ) : (
+              <p>Cargando datos de contagios...</p>
+            )}
+          </div>
+          <div style={{ width: '48%', height: '400px' }}>
+            {/* Mostrar la gráfica de barras si hay datos, de lo contrario mostrar un mensaje */}
+            {barChartData ? (
+              <Bar data={barChartData} />
+            ) : (
+              <p>Cargando datos de contagios...</p>
+            )}
+          </div>
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div style={{ width: '48%', height: '400px' }}>
+            {/* Mostrar la gráfica de barras por estado si hay datos, de lo contrario mostrar un mensaje */}
+            {stateBarChartData ? (
+              <Bar data={stateBarChartData} />
+            ) : (
+              <p>Cargando datos de contagios por estado...</p>
+            )}
+          </div>
+          <div style={{ width: '48%', height: '400px' }}>
+            {/* Mostrar la gráfica de pastel por género si hay datos, de lo contrario mostrar un mensaje */}
+            {genderPieChartData ? (
+              <Pie data={genderPieChartData} />
+            ) : (
+              <p>Cargando datos de contagios por género...</p>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -5,12 +5,12 @@ import ContagiosChart from '../components/componentsjsx/ContagiosChart';
 const Home = () => {
   return (
     <div>
+        <h1>Graficas de contagios</h1>
         <div>
             <div>
             <ContagiosChart />
             </div>
         </div>
-      <h1>Grafica de contagios</h1>
     </div>
   );
 };
